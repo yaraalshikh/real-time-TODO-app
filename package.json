@@ -1,0 +1,19 @@
+{
+    "name": "challenge",
+    "version": "1.0.0",
+    "description": "SCASE hiring challenge to web developers",
+    "main": "index.js",
+    "scripts": {
+        "test": "npm test",
+        "start": "node server.js"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://bitbucket-extern.intenta.de/scm/~exalja/recruitment_challenges.git"
+    },
+    "author": "Alaa Jarad",
+    "dependencies": {
+        "express": "^4.14.0",
+        "socket.io": "^1.5.0"
+    }
+}
