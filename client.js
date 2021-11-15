@@ -24,15 +24,35 @@ function render(todo) {
   const listItemText = document.createTextNode(todo.title);
 
   let deleteButton = document.createElement("button");
+  let checkBox = document.createElement("input");
+  checkBox.name = todo.title;
   let p = document.createElement("p");
   deleteButton.className = "delbut";
+  checkBox.type = "checkbox";
+  if (todo.completed === true) {
+    listItem.style = "color: green; text-decoration: line-through;";
+    checkBox.checked = todo.completed;
+  }
   deleteButton.innerHTML = "Delete";
+  checkBox.onclick = completeTask;
+  p.appendChild(checkBox);
   p.appendChild(listItemText);
   p.appendChild(deleteButton);
   listItem.append(p);
   list.append(listItem);
 }
 
+//function for complete tasks
+function completeTask() {
+    let check = this.parentNode;
+    if (this.checked) {
+      check.style = " text-decoration: line-through; color: #028602";
+    } else {
+      check.style = " text-decoration: none; color: #000";
+    }
+    server.emit("completeSingleTodo", this.name);
+  }
+  
 
 function renderAllTodos(todos) {
   // once render would add all the incoming todos, the todo-list has to be clean
