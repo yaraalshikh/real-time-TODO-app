@@ -52,7 +52,17 @@ function completeTask() {
     }
     server.emit("completeSingleTodo", this.name);
   }
-  
+
+  //fuction to check all tasks as completed
+function completedAllTasks() {
+    let element = document.getElementById("todo-list");
+    checkboxes = document.getElementsByName("chkbox");
+    element.style = "text-decoration: line-through; color: #028602";
+    for (let i = 0; i < checkboxes.length; i++) {
+      checkboxes[i].checked = todo.completed;
+    }
+    server.emit("completeAll");
+  }
 
 function renderAllTodos(todos) {
   // once render would add all the incoming todos, the todo-list has to be clean

@@ -51,6 +51,16 @@ server.on("connection", (client) => {
         // FIXED: This sends all todos every time, could this be more efficient?
         addTodo(NewTodo);
       });
+
+        //when a client cluck on complete all button
+        client.on("completeAll", () => {
+             let rawData = fs.readFileSync("data.json", "utf8");
+              let todosData = JSON.parse(rawData);
+              todosData.forEach((todo) => {
+                   todo.completed = true;
+                });
+                fs.writeFileSync("data.json", JSON.stringify(todosData));
+             });
       
       //when the client check to complete single todo
         client.on("completeSingleTodo", (todoTitle) => {
