@@ -1,41 +1,62 @@
-// FIXME: Feel free to remove this :-)
-console.log('\n\nGood Luck! 😅\n\n');
+const server = require("socket.io")();
+const firstTodos = require("./data");
+const Todo = require("./todo");
+const fs = require("fs");
 
-const server = require('socket.io')();
-const firstTodos = require('./data');
-const Todo = require('./todo');
-
-server.on('connection', (client) => {
+server.on("connection", (client) => {
     // This is going to be our fake 'database' for this application
     // Parse all default Todo's from db
-
-    // FIXME: DB is reloading on client refresh. It should be persistent on new client connections from the last time the server was run...
-    const DB = firstTodos.map((t) => {
-        // Form new Todo objects
-        return new Todo(title = t.title);
+    let DB = firstTodos.map((t) => {
+      // Form new Todo objects
+      return new Todo(
+        (title = t.title),
+        (completed = t.completed),
+        (deleted = t.deleted)
+      );
     });
 
-    // Sends a message to the client to reload all todos
-    const reloadTodos = () => {
-        server.emit('load', DB);
-    }
+  // FIXED: DB is reloading on client refresh. It should be persistent on new client connections from the last time the server was run...
+  const UpdateDB = () => {
+    let rawData = fs.readFileSync("data.json", "utf8");
+    let todosData = JSON.parse(rawData);
+    DB = todosData;
+  };
 
-    // Accepts when a client makes a new todo
-    client.on('make', (t) => {
+  let rawData = fs.readFileSync("data.json", "utf8");
+  let todosData = JSON.parse(rawData);
+
+  // Sends a message to the client to reload all todos
+  const reloadTodos = () => {
+    UpdateDB();
+    server.emit("load", DB);
+  };
+
+    //send the new todo 
+    const addTodo = (todo) => {
+        server.emit("add", todo);
+      };
+
+      client.on("make", (t) => {
         // Make a new todo
-        const newTodo = new Todo(title = t.title);
-
+        let NewTodo = new Todo(
+          (title = t.title),
+          (completed = t.completed),
+          (deleted = t.deleted)
+        );
         // Push this newly created todo to our database
-        DB.push(newTodo);
-
+        DB.push(NewTodo);
+        todosData.push(NewTodo);
+        fs.writeFileSync("data.json", JSON.stringify(todosData));
         // Send the latest todos to the client
-        // FIXME: This sends all todos every time, could this be more efficient?
-        reloadTodos();
-    });
-
+        // FIXED: This sends all todos every time, could this be more efficient?
+        addTodo(NewTodo);
+      });
+    
     // Send the DB downstream on connect
-    reloadTodos();
+        reloadTodos();
 });
 
 console.log('Waiting for clients to connect');
+
 server.listen(3003);
+

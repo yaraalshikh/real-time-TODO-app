@@ -1,16 +1,1 @@
-[{
-        "title": "Buy some milk and coffee"
-    },
-    {
-        "title": "Clean the coffee machine"
-    },
-    {
-        "title": "Sweep the floor"
-    },
-    {
-        "title": "Fix the charger for the speaker"
-    },
-    {
-        "title": "Finish making the hiring challenge"
-    }
-]
+[{"title":"Buy some milk and coffee","completed":false,"deleted":false},{"title":"Clean the coffee machine","completed":false,"deleted":false},{"title":"Sweep the floor","completed":false,"deleted":false},{"title":"Fix the charger for the speaker","completed":false,"deleted":false},{"title":"Finish making the hiring challenge","completed":false,"deleted":false},{"title":"sss","deleted":false},{"title":"ss","completed":false,"deleted":false},{"title":"s","completed":false,"deleted":false}]
