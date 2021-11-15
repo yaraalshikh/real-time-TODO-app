@@ -66,7 +66,7 @@ function completedAllTasks() {
   }
 
   // this function deletes existing task
-var deleteTask = function () {
+let deleteTask = function () {
     //remove parent list item from the ul
     let listItem = this.parentNode;
     let UL = listItem.parentNode;
@@ -75,6 +75,15 @@ var deleteTask = function () {
     input.setAttribute("isDone", true);
     let title = listItem.childNodes[0];
     server.emit("deleteSingleTodo", title.name);
+  };
+
+  //function to delete all tasks
+let deleteAllTask = function () {
+    const ul = document.getElementById("todo-list");
+    ul.innerHTML = "";
+    input.setAttribute("isDone", true);
+    localStorage.setItem("deleteAll", input.getAttribute("isDone"));
+    server.emit("deleteAll");
   };
 
 function renderAllTodos(todos) {

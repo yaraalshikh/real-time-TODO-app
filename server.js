@@ -22,6 +22,10 @@ server.on("connection", (client) => {
     DB = todosData;
   };
 
+  const EmptyDB = () => {
+    fs.writeFileSync("data.json", "[]");
+  };
+
   let rawData = fs.readFileSync("data.json", "utf8");
   let todosData = JSON.parse(rawData);
 
@@ -51,6 +55,13 @@ server.on("connection", (client) => {
         // FIXED: This sends all todos every time, could this be more efficient?
         addTodo(NewTodo);
       });
+
+      
+ // when the client click on delete all button
+  client.on("deleteAll", () => {
+    EmptyDB();
+    UpdateDB();
+  });
 
         //when a client cluck on complete all button
         client.on("completeAll", () => {
@@ -82,6 +93,7 @@ server.on("connection", (client) => {
                         todosData = todosData.filter((item) => item.title !== todoTitle);
                         fs.writeFileSync("data.json", JSON.stringify(todosData));
                     });
+
 
     // Send the DB downstream on connect
         reloadTodos();
