@@ -62,18 +62,26 @@ server.on("connection", (client) => {
                 fs.writeFileSync("data.json", JSON.stringify(todosData));
              });
       
-      //when the client check to complete single todo
-        client.on("completeSingleTodo", (todoTitle) => {
-             let rawData = fs.readFileSync("data.json", "utf8");
-              let todosData = JSON.parse(rawData);
-              todosData.forEach((item) => {
-                    if (item.title == todoTitle) {
-                        item.completed = true;
-                        return;
-                    }
-                 });
+             //when the client check to complete single todo
+               client.on("completeSingleTodo", (todoTitle) => {
+               let rawData = fs.readFileSync("data.json", "utf8");
+               let todosData = JSON.parse(rawData);
+               todosData.forEach((item) => {
+                        if (item.title == todoTitle) {
+                                 item.completed = true;
+                                 return;
+                                 }
+                                });
                   fs.writeFileSync("data.json", JSON.stringify(todosData));
                 });
+
+                  // when the client click on delete single todo
+                   client.on("deleteSingleTodo", (todoTitle) => {
+                        let rawData = fs.readFileSync("data.json", "utf8");
+                        let todosData = JSON.parse(rawData);
+                        todosData = todosData.filter((item) => item.title !== todoTitle);
+                        fs.writeFileSync("data.json", JSON.stringify(todosData));
+                    });
 
     // Send the DB downstream on connect
         reloadTodos();

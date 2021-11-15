@@ -34,6 +34,7 @@ function render(todo) {
     checkBox.checked = todo.completed;
   }
   deleteButton.innerHTML = "Delete";
+  deleteButton.onclick = deleteTask;
   checkBox.onclick = completeTask;
   p.appendChild(checkBox);
   p.appendChild(listItemText);
@@ -63,6 +64,18 @@ function completedAllTasks() {
     }
     server.emit("completeAll");
   }
+
+  // this function deletes existing task
+var deleteTask = function () {
+    //remove parent list item from the ul
+    let listItem = this.parentNode;
+    let UL = listItem.parentNode;
+    let para = UL.parentNode;
+    para.removeChild(UL);
+    input.setAttribute("isDone", true);
+    let title = listItem.childNodes[0];
+    server.emit("deleteSingleTodo", title.name);
+  };
 
 function renderAllTodos(todos) {
   // once render would add all the incoming todos, the todo-list has to be clean
