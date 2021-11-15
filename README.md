@@ -13,15 +13,15 @@ When you're finished, you should have a real-time TODO app that two or more peop
 ##  Your Quest
 
 ### Compulsory
-- [ ] Fix all the bugs
-- [ ] Add a feature that allows users to complete tasks
-- [ ] Add a feature that allows users to delete tasks
-- [ ] Add a feature that allows the completion of all tasks
-- [ ] Add a feature that allows the deletion of all tasks
+- [X] Fix all the bugs
+- [X] Add a feature that allows users to complete tasks
+- [X] Add a feature that allows users to delete tasks
+- [X] Add a feature that allows the completion of all tasks
+- [X] Add a feature that allows the deletion of all tasks
 
 ### Extra
 - [ ] Add caching to the client app so that when we lose our connection we can still see our TODO's
-- [ ] Make a design change to improve the user experience
+- [X] Make a design change to improve the user experience
 
 ## Set Up
 This is a Node app so you'll need Node and NPM to get it up on its feet. you can refere to [NodeJs](https://nodejs.org/en/download/) to download and install NodeJs (and npm), afterwards you can setup the project and start the server via:
