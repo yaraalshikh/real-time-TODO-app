@@ -34,6 +34,7 @@ function render(todo) {
     checkBox.checked = todo.completed;
   }
   deleteButton.innerHTML = "Delete";
+  deleteButton.style = "float:right; padding:11px;";
   deleteButton.onclick = deleteTask;
   checkBox.onclick = completeTask;
   p.appendChild(checkBox);
